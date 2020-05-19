@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const flights = require("./routes/flights");
 const customers = require("./routes/customers");
 const flights_details = require("./routes/flights_details");
-//const rentals = require("./routes/rentals");
+const tickets_info = require("./routes/tickets_info");
 const users = require("./routes/users");
 const auth = require("./routes/auth");
 const express = require("express");
@@ -24,8 +24,8 @@ mongoose
 app.use(express.json());
 app.use("/api/flights", flights);
 app.use("/api/customers", customers);
+app.use("/api/ticketsinfo", tickets_info);
 app.use("/api/flightsdetails", flights_details);
-//app.use("/api/rentals", rentals);
 app.use("/api/users", users);
 app.use("/api/auth", auth);
 

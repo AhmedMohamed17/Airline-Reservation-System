@@ -1,6 +1,5 @@
-//const { Flight, validate } = require("../models/flight");
 const { Flight_details, validate } = require("../models/flight_details");
-const { Flight, FlightSchema } = require("../models/flight");
+const { Flight } = require("../models/flight");
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
@@ -18,11 +17,17 @@ router.post("/", async (req, res) => {
   if (!flight) return res.status(400).send("Invalid Flight.");
 
   const flight_details = new Flight_details({
+    flight_departure_date: req.body.flight_departure_date,
     flight: {
       _id: flight._id,
-      // name: flight.name
+      airline_name: flight.airline_name,
+      from_location: flight.from_location,
+      to_location: flight.to_location,
+      depature_time: flight.depature_time,
+      arrival_time: flight.arrival_time,
+      duration: flight.duration,
+      total_seats: flight.total_seats,
     },
-    flight_departure_date: req.body.flight_departure_date,
     price: req.body.price,
     available_seats: req.body.available_seats,
   });
@@ -35,17 +40,24 @@ router.put("/:id", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const Flight = await Flight.findById(req.body.genreId);
-  if (Flight) return res.status(400).send("Invalid Flight.");
+  const flight = await Flight_details.findById(req.body.flightId);
+  if (flight) return res.status(400).send("Invalid Flight.");
 
   const flight_details = await Flight_details.findByIdAndUpdate(
     req.params.id,
     {
+      flight_departure_date: req.body.flight_departure_date,
       flight: {
         _id: flight._id,
-        // name: flight.name
+        airline_name: flight.airline_name,
+        from_location: flight.from_location,
+        to_location: flight.to_location,
+        depature_time: flight.depature_time,
+        arrival_time: flight.arrival_time,
+        duration: flight.duration,
+        total_seats: flight.total_seats,
       },
-      flight_departure_date: req.body.flight_departure_date,
+
       price: req.body.price,
       available_seats: req.body.available_seats,
     },

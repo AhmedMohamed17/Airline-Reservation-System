@@ -1,6 +1,6 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
-const { Flight, FlightSchema } = require("./flight");
+const { FlightSchema } = require("./flight");
 
 const Flight_details = mongoose.model(
   "flight_details",
@@ -21,7 +21,7 @@ const Flight_details = mongoose.model(
       type: Number,
       required: true,
       min: 0,
-      max: 255,
+      max: 1000,
     },
     available_seats: {
       type: Number,
